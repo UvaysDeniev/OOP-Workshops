@@ -1,3 +1,12 @@
+/*****************************************************************************
+                           WORKSHOP 1 - PART 1
+Author	    : Uvays Deniev
+Student ID# : 123026221
+Email       : udeniev@myseneca.ca
+Section     : NCC
+Date        : 2023-09-14
+*****************************************************************************/
+
 #ifndef SDDS_WORD_H // replace with relevant names
 #define SDDS_WORD_H
 
