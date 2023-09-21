@@ -1,0 +1,28 @@
+**Organizing Source Code into Modules Using Header and Implementation Files**
+
+In this workshop, I learned the importance of modular programming. Separating the code into different modules such as headers and implementation files makes it easier to manage, maintain, and read the code. 
+
+The Part 1 workshop was easy to follow and didn't give me any issues. Since it was already written for me, separating everything into their designated files was simple. Just a simple copy/paste workshop and took about 15-20 minutes at best.
+
+**Distinguishing the Contents of a Header and an Implementation File**
+
+Header files, like phone.h and cStrTools.h contain declarations. They define the interface to the module which includes function prototypes and any necessary data structures. 
+
+Implementation files, like Phone.cpp and cStrTools.cpp, contain the actual code that implements the functions declared in the header. They provide the functionality that's promised by the header. 
+
+**Compiling and Linking Modular Programs**
+
+The modular structure also aids in the compilation process. Each module can be compiled separately, and then all the compiled modules can be linked together to form the final executable. This means that if I make a change in one module, I only need to recompile that module and then relink the program, rather than recompiling everything.
+
+**What I've Learned**
+
+Namespaces: they help in avoiding conflicts and clearly indicate that certain functions belong to a specific module or library. 
+
+File Handling: in Phone.cpp module my use of functions like fopen, fscanf, and fclose demonstrated reading from and writing to files.
+
+String Manipulation: In cStrTools.cpp we can see string manipulation functions, such as converting to lowercase, comparing strings, copying strings, and more.
+
+**Issues I've faced**
+String Handling: I'm still rusty with strCpy and strLen and took some time to remember how to use them. These are essential functions but require experience and knowledge. 
+
+Case Sensitivity: can always cause issues especially when trying to read the files. It took me some time to utilize the toLowerCaseAndCopy function. Yet somehow managed.
