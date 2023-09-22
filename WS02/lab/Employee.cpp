@@ -67,7 +67,7 @@ namespace sdds {
                cout << "Error: couln't read data file. Check your code." << endl;
                // Implement memory deallocation here...
                deallocateMemory();
-               isValid;
+               isValid = true;
             }
          }
          closeFile();
