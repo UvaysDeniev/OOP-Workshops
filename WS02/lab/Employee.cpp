@@ -10,10 +10,19 @@
 // -----------------------------------------------------------
 // Name            Date            Reason
 ***********************************************************************/
+/*****************************************************************************
+                           WORKSHOP 2 - PART 1
+Author	    : Uvays Deniev
+Student ID# : 123026221
+Email       : udeniev@myseneca.ca
+Section     : NCC
+Date        : 2023-09-22
+*****************************************************************************/
 #include <iostream>
 #include "Employee.h"
 #include "File.h"
 using namespace std;
+
 namespace sdds {
 
    int noOfEmployees;
@@ -37,24 +46,59 @@ namespace sdds {
    // TODO: Finish the implementation of the 1 arg load function which
    // reads one employee record from the file and loads it into the employee reference
    // argument
-   bool load(...............) {
-      bool ok = false;
+   bool load(Employee& emp) {
+      bool empNoRead = read(emp.m_empNo);
+      bool salaryRead = read(emp.m_salary);
+      bool nameRead = read(emp.m_name);
       // return the combined success result of the three read functions. These read 
       // functions should set the properties of the reference argument of the load function
-      return ok;
+      return empNoRead && salaryRead && nameRead;
    }
+
    // TODO: Finish the implementation of the 0 arg load function 
    bool load() {
-      bool ok = false;
- 
-      return ok;
+      bool isValid = false;
+      if (openFile(DATAFILE)) {
+         noOfEmployees = noOfRecords();
+         employees = new Employee[noOfEmployees];
+         for (int i = 0; i < noOfEmployees; ++i) {
+            isValid = load(employees[i]);
+            if (!isValid) {
+               cout << "Error: couln't read data file. Check your code." << endl;
+               // Implement memory deallocation here...
+               deallocateMemory();
+               isValid;
+            }
+         }
+         closeFile();
+      }
+      else {
+         cout << "Could not open data file: " << DATAFILE << endl;
+      }
+      return isValid;
    }
 
    // TODO: Implementation for the display functions go here
+   void display(const Employee& emp) {
+      cout << emp.m_empNo << ": " << emp.m_name << ", $" << emp.m_salary << endl;
+   }
 
-
+   void display() {
+      sort();
+      cout << "Employee Salary report, sorted by employee number" << endl;
+      cout << "no- Empno, Name, Salary" << endl;
+      cout << "------------------------------------------------" << endl;
+      for (int i = 0; i < noOfEmployees; ++i) {
+         cout << i + 1 << "- ";
+         display(employees[i]);
+      }
+   }
    // TODO: Implementation for the deallocateMemory function goes here
-
-
-
+   void deallocateMemory() {
+      for (int i = 0; i < noOfEmployees; ++i) {
+         delete[] employees[i].m_name;
+      }
+      delete[] employees;
+      employees = nullptr;
+   }
 }
