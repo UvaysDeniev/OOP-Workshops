@@ -1,0 +1,53 @@
+In this workshop, I dove deeper into dynamic memory management, function overloading, and the utilization of references.
+
+** Allocating and Deallocating Dynamic Memory: ** 
+
+Dynamic memory allocation is an important concept that allows programs to acquire memory space during runtime along with the freedom to acquire more space or release some based on requirements. In this workshop, I used 'new' to allocate memory for arrays dynamically and delete[] to deallocate the memory, preventing memory leaks. For instance, in the load function, I allocated memory for the populations array dynamically based on the number of matching records:
+
+populations = new Population[noOfPopulations];
+
+And in the deallocateMemory function, I ensured to release the allocated memory:
+
+delete[] populations;
+populations = nullptr;
+
+Why dynamic memory imporatant:
+
+Dynamic memory allocation allows for more flexible memory usage compared to static memory allocation. It enables your program to handle varying amounts of data, which is crucial for many real-world applications.
+Proper deallocation of dynamically allocated memory is essential to prevent memory leaks, which can cause your program to consume more memory than necessary and eventually crash or slow down the system.
+
+** Function Overloading: **
+
+Function overloading allows functions to have the same name but different parameters (either different types or different numbers of parameters), which can be seen in the read functions in the File module. This feature improves code readability and provides a way to define functions based on the parameter types they operate on.
+
+bool read(char*& name);
+bool read(int& empNo);
+bool read(double& salary);
+
+
+Why function overloading is important:
+Function overloading allows for the creation of several functions with the same name but different parameters, making the code more readable and easier to maintain.
+It provides a way to define a family of functions that perform the same kind of action with different types of data, making code a little more self-explanatory.
+
+**Creating and Using References:**
+
+References provide an alternative name for a variable, allowing for more straightforward and self-explanatory code. In the load function of Workshop 1, I utilized references to simplify the code and ensure the correct values are being used and modified:
+
+bool load(Employee& emp) {
+    bool empNoRead = read(emp.m_empNo);
+    bool salaryRead = read(emp.m_salary);
+    bool nameRead = read(emp.m_name);
+    return empNoRead && salaryRead && nameRead;
+}
+
+Why using references is important:
+
+References provide an alternative name for a variable, allowing for more direct manipulation of variable values. They are particularly useful when you want to pass variables to functions without making a copy of the variable (which would happen if you pass by value).
+Using references can make your code more efficient (by avoiding copying and using more memory) and also more readable, by making it clear that a function is intended to modify a variable rather than just read from it.
+
+** Issues Encountered: ** 
+
+I initially faced challenges with dynamic memory allocation, especially ensuring that memory is properly deallocated to prevent leaks. The concept of function overloading was straightforward, but implementing it efficiently required a good understanding of the data types and the function signatures. The use of references was initially confusing, but with practice, it became clearer.
+
+Creating bool load function for my DYI workshop proven to take longer than I anticipated. 
+I went back to workshop 1 and tried to mimic it as much as I could in order to receive the results. I made sure to leave notes after every step to help myself visualize what the code needed to do. Eventually, it all seemed to work out and Matrix liked it.

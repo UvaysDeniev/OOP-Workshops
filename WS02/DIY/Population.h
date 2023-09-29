@@ -9,14 +9,30 @@
 // Revision History
 // -----------------------------------------------------------
 // Name            Date            Reason
-***********************************************************************/#ifndef SDDS_POPULATION_H_
+***********************************************************************/
+/*****************************************************************************
+                           WORKSHOP 2 - PART 2
+Author	    : Uvays Deniev
+Student ID# : 123026221
+Email       : udeniev@myseneca.ca
+Section     : NCC
+Date        : 2023-09-28
+*****************************************************************************/
+#ifndef SDDS_POPULATION_H_
 #define SDDS_POPULATION_H_
 
 namespace sdds {
-   // returns true of the cstring starts with subString
+   struct Population {
+      char postalCode[4];
+      int population;
+   };
+
    bool startsWith(const char* cString, const char* subString);
-
-
+   bool getPostalCode(char* postal_code_prefix);
+   bool load(const char* filename, const char* partial_postal_code_prefix);
+   void sort();
+   void display();
+   void deallocateMemory();
 
 }
-#endif // SDDS_POPULATION_H_
+#endif // !SDDS_POPULATION_H_
