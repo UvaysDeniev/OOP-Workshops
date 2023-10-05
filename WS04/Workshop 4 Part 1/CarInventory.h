@@ -27,19 +27,14 @@ namespace sdds {
       //When instantiated using this constructor, if the year, code or price arguments are not provided
       //they will be set to 2022, 100 and 1.0 using default values for the arguments.
       CarInventory(const char* type, const char* brand, const char* model,
-                   int year, int code, double price); // Overloaded Constructor
+                   int year = 2022, int code = 100, double price = 1.0); // Overloaded Constructor
 
       //This method will first deallocate all the allocated memoryand then set the attributes to 
       //the corresponding arguments exactly like the 6 - argument constructor.
       CarInventory& setInfo(const char* type, const char* brand, const char* model,
                              int year, int code, double price);
 
-      //This method prints the values of all the member variables on the screen in the following format.
-      //Order:
-      //TYPE, BRAND, MODEL, YEAR, CODE, PRICE
-      //  Spacing :
-      //| 10  spaces | 16        spaces | 16        spaces | 9999 |   999 | 999999.99 |
-      //| Left       | left             | Left             |      | right |     right |
+
       void printInfo() const;
 
       //This method returns whether all member variables have valid values
