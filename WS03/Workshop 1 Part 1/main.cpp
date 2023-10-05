@@ -23,7 +23,7 @@ int main() {
 	int i;
 	Train trains[7];
 	char st[] = "Seneca Express A";
-	for(i = 0; i < 7; i++) {
+	for (i = 0; i < 7; i++) {
 		trains[i].initialize();
 	}
 	trains[0].set(nullptr, 100, 945);;
@@ -58,19 +58,20 @@ int main() {
 	cout << "----------------------------------------" << endl;
 	cout << "3. Testing the member functions." << endl;
 	cout << "----------------------------------------" << endl;
-	for(i = 0; i <7; i++) {
+	for (i = 0; i < 7; i++) {
 		trains[i].set(st);
-		trains[i].set(100+i*155, 630+i*100+i*6);
+		trains[i].set(100 + i * 155, 630 + i * 100 + i * 6);
 		st[15]++;
 		cout << (i + 1) << ": ";
-		if(trains[i].isInvalid()) {
+		if (trains[i].isInvalid()) {
 			cout << "*************" << endl;
-		} else {
+		}
+		else {
 			cout << trains[i].getName() << " leaves at " << trains[i].getDepartureTime() << " with " << trains[i].noOfPassengers() << " passengers." << endl;
 		}
 	}
 	cout << "----------------------------------------" << endl << endl;
-	for(i = 0; i < 7; i++) {
+	for (i = 0; i < 7; i++) {
 		trains[i].finalize();
 	}
 	return 0;

@@ -1,0 +1,70 @@
+Workshop 3 Reflection:
+
+In this workshop, I focused on defining class types, encapsulating data, and managing dynamic memory within a class. The workshop provided a comprehensive understanding of how to structure and manipulate data using classes.
+
+
+** Defining a Class Type **
+
+Defining a class type is the foundation of OOP. It allows us to encapsulate data and functions into a single unit, making it easier to manage and understand. I defined the Train class in this workshop, which served as a blueprint for creating train objects.
+
+Why defining class types is important:
+
+Class types provide a blueprint for creating objects, ensuring consistency and predictability in how objects behave.
+They encapsulate data and functions, promoting modularity and reusability in code.
+
+
+** Privatizing Data Within the Class Type **
+
+Encapsulation is a fundamental principle in OOP. By privatizing data members within the Train class, I ensured that they could only be accessed and modified through member functions, safeguarding the data.
+
+Why privatizing data is important:
+
+It prevents unauthorized access and modification of data, ensuring data integrity.
+
+
+** Instantiating Objects of Class Type **
+
+Instantiating objects is the process of creating instances of a class. I created multiple Train objects in the workshop, each representing a unique train with its attributes.
+
+Why object instantiation is important:
+
+It allows us to create multiple instances of a class, each with its unique state.
+Object instantiation brings the class to life, enabling us to utilize its functionalities.
+
+
+** Using Member Functions to Query and Modify the State of an Object **
+
+I used various member functions like getName(), getDepartureTime(), and set() to query and modify the state of Train objects.
+
+Why member functions are important:
+
+They provide controlled access to an object's data, ensuring data integrity.
+Member functions encapsulate the behaviours associated with an object, making it easier to understand and use.
+
+
+** Formatting Data with Standard Library Facilities ** 
+
+Utilizing the standard library, I formatted data to be inserted into the output stream, ensuring that the display of train information was consistent and readable.
+
+Why using standard library facilities is important:
+
+It provides pre-built functionalities, reducing the need to reinvent the wheel.
+Ensures consistent and standardized data formatting across different parts of the program.
+
+
+** Dynamically Allocating and Deallocating Memory Within a Class **
+
+Dynamic memory management was a crucial aspect of this workshop. I dynamically allocated memory for the train names and ensured proper deallocation to prevent memory leaks.
+
+Why dynamic memory management within a class is important:
+
+It allows for flexible memory usage, accommodating varying data sizes.
+Proper deallocation ensures efficient memory usage and prevents potential system slowdowns or crashes.
+
+Issues Encountered:
+
+The concept of dynamically allocating memory within a class was somewhat challenging, especially ensuring that memory was deallocated properly. 
+The transfer function, which involved allocating memory for concatenated train names, required careful attention to ensure no memory leaks occurred. To help me build this function, I decided to add extra comments to help me with every step.
+Building the transfer function was very challenging at first, but with time and "just start coding" mentality, I was able to create a functional creation.
+
+Overall, this workshop wasn't too difficult and didn't take too much time compared to the previous two. 
