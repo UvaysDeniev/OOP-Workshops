@@ -1,3 +1,12 @@
+/*****************************************************************************
+                           WORKSHOP 4 - PART 1
+Author	    : Uvays Deniev
+Student ID# : 123026221
+Email       : udeniev@myseneca.ca
+Section     : NCC
+Date        : 2023-10-06
+*****************************************************************************/
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -7,6 +16,8 @@
 
 namespace sdds {
 
+   //This method resets the values for all member variables by setting type, brand, and model to nullptr
+   // and setting the year, code, and price to 0.
    void CarInventory::resetInfo()
    {
       m_type = nullptr;
@@ -17,7 +28,7 @@ namespace sdds {
       m_price = 0.0;
    }
 
-
+   //The default constructor will initialize the member variables by calling the resetInfo() method
    CarInventory::CarInventory()
    {
       resetInfo();
@@ -48,8 +59,17 @@ namespace sdds {
 
    }
 
+   // Not sure if this is correct but I felt like destructor was a must.
+   CarInventory::~CarInventory()
+   {
+      delete[] m_type;
+      delete[] m_brand;
+      delete[] m_model;
+   }
 
 
+   // This method will first deallocate all the allocated memory and then set the attributes to 
+   // the corresponding arguments exactly like the 6 - argument constructor.
    CarInventory& CarInventory::setInfo(const char* type, const char* brand, const char* model,
                                                               int year, int code, double price)
    {
@@ -89,25 +109,40 @@ namespace sdds {
                 << " |" << std::endl;
    }
 
-
+   //This method returns whether all member variables have valid values
+   //or not based on the criteria stated in the Private Member Variables.
    bool CarInventory::isValid() const 
    {  
       return m_type != nullptr && m_brand != nullptr && m_model != nullptr
          && m_year >= 1990 && (m_code >= 100 && m_code <= 999) && m_price > 0;
    }
 
+   //This function is to check whether the type, make, brand and year of an object of CarInventory
+   // are equal to another object of this class.
+   //The function will return true only if all those values match.
    bool CarInventory::isSimilarTo(const CarInventory& car) const
    {
-      if (car.isValid() == this->isValid())
-         return true;
-      else
+      if (!m_type || !m_brand || !m_model || !car.m_type || !car.m_brand || !car.m_model) {
          return false;
+      }
+      return strcmp(m_type, car.m_type) == 0 &&
+             strcmp(m_brand, car.m_brand) == 0 &&
+             strcmp(m_model, car.m_model) == 0 &&
+             m_year == car.m_year;
    }
 
-
+   // It returns the index of the first match, if it finds two CarInventory objects that have
+   // similar information in the car array.See below for the function implementation logic:
    int find_similar(CarInventory car[], const int num_cars)
    {
-      return 0;
+      for (int i = 0; i < num_cars; i++) {
+         for (int j = i + 1; j < num_cars; j++) {
+            if (car[i].isSimilarTo(car[j])) {
+               return i;
+            }
+         }
+      }
+      return -1; // if wrong return -1
    }
 
 }
