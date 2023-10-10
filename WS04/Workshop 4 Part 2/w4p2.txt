@@ -1,0 +1,7 @@
+6
+Applied Problem Solving
+Computer Principles for Programmers
+Communicating Across Contexts (Enriched)
+Introduction to Programming Using C
+Introduction to UNIX/Linux and the Internet
+Computer Programming and Analysis, Co-op (Work-Integrated Learning option only)

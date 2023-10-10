@@ -25,7 +25,7 @@ namespace sdds {
       Label(const char* frameArg, const char* content);
       ~Label();
 
-      istream& readLabel();
+      std::istream& readLabel();
       std::ostream& printLabel() const;
       Label& text(const char* content);
 
