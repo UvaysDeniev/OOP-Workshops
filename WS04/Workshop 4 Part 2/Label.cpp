@@ -64,12 +64,12 @@ namespace sdds {
       }
 
       if (content == nullptr) {
-         m_content = new char[strlen(content) + 1];
-         strcpy(m_content, content);
+         m_content = nullptr;
       }
       else
       {
-         m_content = nullptr;
+         m_content = new char[strlen(content) + 1];
+         strcpy(m_content, content);
       }
 
    }
@@ -115,7 +115,7 @@ namespace sdds {
       }
 
       int contentLength = strlen(m_content); // length of the m_content assigned to contentLength
-      int frameWidth = contentLength + 2;  // adding 2 padding from both sides of the content
+      int frameWidth = contentLength + 2;  // adding padding from both sides of the content
 
       // TOP (FIRST) LINE
       std::cout << m_frameArg[0]; // top left corner
@@ -142,11 +142,11 @@ namespace sdds {
       std::cout << m_frameArg[7] << std::endl;
 
       // BOTTOM LINE
-      std::cout << m_frameArg[0]; 
+      std::cout << m_frameArg[2]; 
       for (int i{ 0 }; i < frameWidth; ++i) {
          std::cout << m_frameArg[1]; // the '+' char will repeat appropriately
       }
-      std::cout << m_frameArg[2];
+      std::cout << m_frameArg[4];
 
       return std::cout;
    }

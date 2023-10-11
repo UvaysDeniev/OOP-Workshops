@@ -10,7 +10,7 @@ Date        : 2023-10-10
 #ifndef SDDS_LABEL_H
 #define SDDS_LABEL_H
 
-const char MAX_CHAR_SIZE = 70;
+const char MAX_CHAR_SIZE = 71;
 
 namespace sdds {
 

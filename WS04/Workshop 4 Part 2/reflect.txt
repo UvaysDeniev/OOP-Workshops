@@ -1,1 +1,85 @@
-to fill
+** Creating Default and Overloaded Constructors: ** 
+
+Constructors are special member functions that are executed whenever we create new objects of a class. They guide the initial state of an object. This workshop introduced me to both default and overloaded constructors.
+For example, in the Label class, I created a default constructor that initializes the label with a default frame:
+
+Label::Label()
+{
+   m_content = nullptr;
+   m_frameArg = new char[strlen(DEFAULT_FRAME) + 1];
+   strcpy(m_frameArg, DEFAULT_FRAME);
+}
+
+Additionally, I implemented overloaded constructors that allow for more flexibility in object instantiation, such as setting the frame or content upon creation:
+
+   Label::Label(const char* frameArg, const char* content)
+   {
+      if (frameArg == nullptr) {
+         m_frameArg = new char[strlen(DEFAULT_FRAME) + 1];
+         strcpy(m_frameArg, DEFAULT_FRAME);
+      }
+      else
+      {
+         m_frameArg = new char[strlen(frameArg) + 1];
+         strcpy(m_frameArg, frameArg);
+      }
+
+      if (content == nullptr) {
+         m_content = nullptr;
+      }
+      else
+      {
+         m_content = new char[strlen(content) + 1];
+         strcpy(m_content, content);
+      }
+
+   }
+
+Why Constructors are Important:
+
+They ensure that objects start their life in a valid state.
+Overloaded constructors provide flexibility, allowing objects to be initialized in different ways.
+
+** Creating Destructors: **
+
+Destructors are vital for resource management, especially when dealing with dynamic memory. In the Label class, I ensured that dynamically allocated memory is released when an object goes out of scope:
+
+Label::~Label()
+{
+   delete[] m_content;
+   delete[] m_frameArg;
+}
+
+Why Destructors are Important:
+
+They prevent memory leaks by releasing resources that are no longer needed.
+They ensure that objects are cleaned up properly when they are destroyed.
+
+** Initializing Class Member Variables: ** 
+
+Member variable initialization is crucial to ensure that objects behave as expected. In the LabelMaker class, I initialized the number of labels and allocated memory for them dynamically:
+
+LabelMaker::LabelMaker(int noOfLabels)
+{
+   lm_noOfLabels = noOfLabels;
+   lm_labels = new Label[noOfLabels];
+}
+
+** Releasing Member Pointers: **
+
+Managing dynamic memory is a cornerstone of C++ programming. In the LabelMaker destructor, I made sure to deallocate the memory reserved for labels:
+
+LabelMaker::~LabelMaker()
+{
+   delete[] lm_labels;
+}
+
+** Issues Encountered: ** 
+
+One challenge I faced was ensuring that all dynamically allocated memory was properly deallocated. It required careful attention to detail, especially when dealing with arrays of objects. Another issue was understanding the flow and interaction between constructors, member functions, and destructors.
+
+Playing around with the output was fun this time around. I had some difficulties displaying the boxes as intended until I played around with padding. Understanding what main.cpp was crucial but I feel that with every workshop i'm getting a lot better. 
+
+When I failed this course the first time, I couldn't understand what constructors and destructors were about. Now i'm feeling comfortable with dynamic member allocation, constructors, and destructors. 
+
+Also, I'm reading the main file a lot better and can understand what is expected of me. Let's see where it leads :D

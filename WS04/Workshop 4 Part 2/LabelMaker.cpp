@@ -32,6 +32,7 @@ namespace sdds {
    // (Assuming the above two labels are added to LabelMaker):
    void LabelMaker::readLabels()
    {
+      std::cout << "Enter " << (lm_noOfLabels) << " labels:" << std::endl;
       for (int i = 0; i < lm_noOfLabels; ++i) {
          std::cout << "Enter label number " << (i + 1) << std::endl;
          std::cout << "> ";
