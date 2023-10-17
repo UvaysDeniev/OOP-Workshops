@@ -1,0 +1,89 @@
+Workshop 5 Reflection
+
+***Defining and Creating Various Operators***
+
+In this workshop, the focus was primarily on operator overloading, allowing objects of a class to be used as if they were fundamental types. I defined and created binary member operators, unary operators, type conversion operators, and helper operators between a primitive type and a class.
+
+For instance, the type conversion operators were used to convert a Portfolio object to double, const char*, and char types, enabling the extraction of specific attributes of a Portfolio object seamlessly:
+
+Portfolio::operator double() const
+{
+   return m_value;
+}
+
+Why Defining and Creating Various Operators is Important:
+
+Defining and creating various operators is crucial as it allows for the manipulation of objects. It enables objects of a class to be used similarly to primitive data types, providing a natural syntax for object manipulation. This is particularly significant in mathematical and logical operations, where overloading operators such as +, -, and == make the code more expressive and easier to understand.
+
+***Understanding and Implementing Binary Member Operators***
+
+Binary member operators such as += and -= were implemented to modify the state of Portfolio objects. These operators facilitate the addition or subtraction of values to the Portfolio’s value, enhancing the flexibility and ease of manipulating Portfolio objects:
+
+Portfolio& Portfolio::operator+=(double pValue)
+{
+   if (*this && pValue >= 0) {
+      m_value += pValue;
+   }
+   return *this;
+}
+
+
+Why Understanding and Implementing Binary Member Operators is Important:
+
+Understanding and implementing binary member operators is essential because it allows for the direct manipulation of object data. It facilitates the creation of expressive syntax for operations involving two operands, such as addition or comparison, making the code more readable and user-friendly. This understanding is vital for creating robust and flexible class definitions that support a wide range of operations, enhancing the usability of the class in various contexts.
+
+***Implementing Unary Operators***
+
+Unary operators like ~ and bool() were defined to perform operations on a single operand. They were crucial in evaluating the state of Portfolio objects, providing a convenient way to assess the object's attributes:
+
+bool Portfolio::operator~() const
+{
+   return m_value < 0;
+}
+
+Why Implementing Unary Operators is Important:
+
+Implementing unary operators is significant as it provides a way to perform operations on a single operand, allowing for the modification or evaluation of an object's state. Unary operators such as negation or logical NOT are fundamental in various computations and logical evaluations, making them indispensable in creating versatile and functional class definitions.
+
+***Creating Helper Operators***
+
+Helper operators were created to facilitate operations between Portfolio objects and primitive types. These operators, such as the standalone + and +=, allow for more intuitive and straightforward operations involving Portfolio objects:
+
+double operator+(const Portfolio& lhs, const Portfolio& rhs) {
+   if (lhs && rhs) {
+      return double(lhs) + double(rhs);
+   }
+   return 0;
+}
+
+Why Creating Helper Operators is Important:
+
+Creating helper operators is vital as it extends the functionality of classes, allowing them to interact seamlessly with other data types. Helper operators facilitate operations between objects and primitive types, enhancing the flexibility and applicability of the class. This is particularly important in mathematical computations and logical evaluations where class objects need to interact with fundamental data types seamlessly.
+
+***Difficulties encountered***
+
+During Workshop 5, Part 1, a small yet impactful challenge I faced was related to the usage of const in boolean operators. I initially wrote bool operator~() instead of bool operator~() const. This seemingly minor mistake led to unexpected outputs and took me a good two hours to debug and correct. If I had any hair to lose, this would've done it for me. Absolute chaos.
+
+In Part 2 of Workshop 5, another issue surfaced while working with assignment operators. I noticed that if I didn’t properly check for the current object in my assignment operators, it resulted in a wrong output. For instance, in the Portfolio& Portfolio::operator+=(double pValue) function, ensuring that the current Portfolio object was valid was crucial for obtaining the correct results:
+
+Portfolio& Portfolio::operator+=(double pValue)
+{
+   // Checks if the current Portfolio object is valid and the input value is non-negative
+   if (*this && pValue >= 0) {
+      m_value += pValue;
+   }
+   return *this;
+}
+
+***Workshop Difficulty***
+
+Part 1: 7.5/10 (due to material being new).
+Part 2: 4/10   (w1 really helped with p2).
+
+***Time took***
+
+Part 1: 5 hours
+Part 2: 2 hours
+
+***Workshop Clarity***
+10/10: Very well written!
