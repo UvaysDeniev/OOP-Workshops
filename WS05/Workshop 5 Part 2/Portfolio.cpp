@@ -20,15 +20,13 @@ Date        : 2023-10-17
 *****************************************************************************/
 #define _CRT_SECURE_NO_WARNINGS
 
+#include <ostream> // for std ostream
+#include <iostream> // for cout
 #include "Portfolio.h"
+
 
 using namespace std;
 namespace sdds {
-
-
-   Portfolio::Portfolio() {
-      emptyPortfolio();
-   }
 
    void Portfolio::emptyPortfolio()
    {
@@ -36,6 +34,12 @@ namespace sdds {
       m_stock[0] = 0;
       m_type = 'E';
    }
+
+   Portfolio::Portfolio() {
+      emptyPortfolio();
+   }
+
+
    Portfolio::Portfolio(double value, const char* stock, char type) {
       emptyPortfolio();
       if (value >= 0 && (type == 'V' || type == 'G' || type == 'I')) {

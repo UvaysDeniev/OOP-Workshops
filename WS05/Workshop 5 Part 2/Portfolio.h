@@ -29,7 +29,15 @@ namespace sdds {
       char m_stock[16];
       char m_type;
 
+      void dispPortfolio() const;
+
    public:
+
+      Portfolio();
+      void emptyPortfolio();
+      Portfolio(double value, const char* stock, char type);
+
+      std::ostream& display() const;
 
    };
 }
