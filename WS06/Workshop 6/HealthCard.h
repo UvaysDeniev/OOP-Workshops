@@ -1,3 +1,12 @@
+/*****************************************************************************
+                           WORKSHOP 6 - LAB
+Author	    : Uvays Deniev
+Student ID# : 123026221
+Email       : udeniev@myseneca.ca
+Section     : NCC
+Date        : 2023-11-03
+*****************************************************************************/
+
 #ifndef HEALTHCARD_H
 #define HEALTHCARD_H
 
@@ -10,8 +19,8 @@ namespace sdds {
 
    class HealthCard {
    private:
-      char* m_name{}; // Dynamically allocated full name of a person
-      long long m_number; // Main health card number
+      char* m_name{}; //  to hold the full name of a person which is Dynamically allocated
+      long long m_number; // to hold the main health card number
       char m_vCode[3]; // Version code of the card
       char m_sNumber[10]; // Stock Control Number
 
