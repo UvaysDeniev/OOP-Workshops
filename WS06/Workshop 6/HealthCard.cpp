@@ -67,8 +67,6 @@ namespace sdds {
          istr.ignore(1000, ch);
          istr.setstate(std::ios::failbit);
       }
-
-
    }
 
    // Inserts the three parts related to the main card number,
