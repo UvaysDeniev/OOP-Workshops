@@ -1,0 +1,164 @@
+Workshop 6 Reflection
+
+***Defining and Implementing Multiple Constructors***
+
+Constructors are the backbone of object initialization, and defining multiple versions allowed me to cater to different initialization scenarios. For instance, the HealthCard class required a default constructor for creating an empty state, a parameterized constructor for initializing with data, and a copy constructor for creating a deep copy of an existing object:
+
+HealthCard(const char* name = nullptr, long long number = 0, const char vCode[] = {}, const char sNumber[] = {});
+
+HealthCard::HealthCard(const char* name, long long number, const char vCode[], const char sNumber[])
+   {
+      set(name, number, vCode, sNumber);
+   }
+
+HealthCard::HealthCard(const HealthCard& hc) {
+   if (hc) {
+      set(hc.m_name, hc.m_number, hc.m_vCode, hc.m_sNumber);
+   } else {
+      setEmpty();
+   }
+}
+
+Why Defining and Implementing Multiple Constructors is Important
+
+Multiple constructors enable the creation of objects in different states and with various initializations. This flexibility is essential for robust class design, allowing users to instantiate objects that are immediately in a valid state, tailored to the context of their use. 
+
+
+***Defining and Implementing the Rule of Three***
+
+The Rule of Three — encompassing a destructor, copy constructor, and copy assignment operator — is crucial for classes that manage dynamic resources. I implemented these to ensure that HealthCard objects manage their memory correctly, preventing leaks and ensuring independent resource ownership:
+
+HealthCard::~HealthCard() {
+   delete[] m_name;
+}
+
+HealthCard::HealthCard(const HealthCard& hc) {
+   if (hc) {
+      set(hc.m_name, hc.m_number, hc.m_vCode, hc.m_sNumber);
+   } else {
+      setEmpty();
+   }
+}
+
+HealthCard& HealthCard::operator=(const HealthCard& hc) {
+   if (this != &hc) {
+      set(hc.m_name, hc.m_number, hc.m_vCode, hc.m_sNumber);
+   }
+   return *this;
+}
+
+Why Defining and Implementing the Rule of Three is Important:
+
+The Rule of Three is a class design principle that ensures that objects that manage resources do so without risk of resource leaks, double freeing, or other undefined behaviours. It's essential in a language like C++ where manual memory management is common. By correctly implementing the Rule of Three, we ensure that our classes can be copied and assigned while maintaining resource integrity, which is crucial for the stability and reliability of software.
+
+
+***Reading Formatted Data Using istream***
+
+Reading data into objects from streams is a common operation. Overloading the extraction operator allowed me to define precisely how HealthCard objects interpret and store input data, ensuring data integrity and ease of use:
+
+std::istream& operator>>(std::istream& istr, HealthCard& hc) {
+   return hc.read(istr);
+}
+
+Why Reading Formatted Data Using istream is Important:
+
+Reading formatted data using istream is vital for input validation and parsing. It allows a program to interpret and process user input or file data in a structured manner. This is crucial for data-driven applications where the input must be converted into usable objects without errors, ensuring that the program operates on clean and expected data.
+
+
+***Writing Formatted Data Using ostream***
+
+Similarly, writing data from objects to streams in a formatted manner is essential for output clarity. By overloading the insertion operator, I could control how HealthCard objects present their data, making the output both human-readable and suitable for file storage:
+
+std::ostream& operator<<(std::ostream& ostr, const HealthCard& hc) {
+   if (hc) {
+      hc.print(ostr, false);
+   } else {
+      ostr << "Invalid Health Card Record";
+   }
+   return ostr;
+}
+
+Why Writing Formatted Data Using ostream is Important:
+
+Writing formatted data using ostream is equally important for outputting data in a readable and structured format. It enables the communication of information to the user or the storage of data in a way that can be easily retrieved and understood. This is essential for reporting, user interfaces, and data persistence, where the clarity of the output can greatly affect the usability and professionalism of a software application.
+
+
+***Overloading the Extraction and Insertion Operators for I/O***
+
+Overloading these operators for the HealthCard class provided a seamless way to read from and write to streams, encapsulating the complexity of handling the object's data:
+
+   std::ostream& operator<<(std::ostream& ostr, const HealthCard& hc)
+   {
+      if (hc) { //if valid
+         hc.print(ostr, false); // Print the health card information on the screen (not to file)
+      }
+      else {
+         ostr << "Invalid Health Card Record";
+      }
+      return ostr;
+   }
+
+   std::istream& operator>>(std::istream& istr, HealthCard& hc) {
+      return hc.read(istr);
+   }
+
+Why Overloading the Extraction and Insertion Operators for I/O is Important:
+
+Overloading the extraction (>>) and insertion (<<) operators for custom classes provides a natural and intuitive interface for I/O operations, aligning with the behaviour of built-in types. This not only makes the code more readable and maintainable. 
+
+***Difficulties encountered***
+
+I couldn't get the correct output for about 20 minutes because my logic was wrong in several sections and my copy assignment operator wasn't correctly designed.
+
+In allocateAndCopy function, my if statement said if (name = nullptr) which gave the incorrect output for every line, until I realized my mistakes after running debugging line by line:
+
+(correct code)
+   void HealthCard::allocateAndCopy(const char* name)
+   {
+      delete[] m_name;
+      if (name != nullptr) {
+         m_name = new char[strlen(name) + 1];
+         strcpy(m_name, name);
+      }
+   }
+
+Despite how simple extractChar function is, I've never used how to use istr.peek(), so I had to research online on how to use it correctly. Took me 10 minutes too long to create this:
+
+(correct code)
+   void HealthCard::extractChar(std::istream& istr, char ch) const
+   {
+      if (istr.peek() == ch) {
+         istr.ignore();
+      }
+      else {
+         istr.ignore(1000, ch);
+         istr.setstate(std::ios::failbit);
+      }
+   }
+
+For copy assignment, I completely missed the self-copy check, and ran the program without if (this != &hc). I had to go back to Workshop 5 and 4 to realize my mistake:
+
+(correct code)
+   HealthCard& HealthCard::operator=(const HealthCard& hc) {
+      if (this != &hc) {
+         if (hc) {
+            set(hc.m_name, hc.m_number, hc.m_vCode, hc.m_sNumber);
+         }
+         else {
+            setEmpty();
+         }
+      }
+      return *this;
+   }
+
+***Workshop Difficulty***
+
+LAB: 9/10 (required more thinking and material reading than any other workshops. I am still rusty with the material).
+
+***Time took***
+
+LAB: 6 hours (over two days).
+Reflection: 35 minutes
+
+***Workshop Clarity***
+8/10: Mostly well written, but the first 1/3 of felt more confusing. 

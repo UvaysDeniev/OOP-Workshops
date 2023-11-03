@@ -1,9 +1,9 @@
 import pyautogui as gui
 import time
 
-time.sleep(5)
+time.sleep(3)
 
-with open('w4p2.txt', 'r') as tst:
+with open('inputScript.txt', 'r') as tst:
     time.sleep(1)
     tst = tst.readlines()
     for i in range(0, len(tst), 1):
