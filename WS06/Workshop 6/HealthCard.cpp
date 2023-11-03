@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 #include "HealthCard.h"
 using namespace std;
 
@@ -24,9 +25,9 @@ namespace sdds {
    //Sets the HeathCard object to a recognizable empty(invalid) state by setting m_name to nullptr;
    void HealthCard::setEmpty() {
       m_name = nullptr;
-      //m_number = 0;
-      //m_vCode[0] = '\0';
-      //m_sNumber[0] = '\0';
+      m_number = 0;
+      m_vCode[0] = '\0';
+      m_sNumber[0] = '\0';
    }
 
 
@@ -37,12 +38,11 @@ namespace sdds {
    void HealthCard::allocateAndCopy(const char* name)
    {
       delete[] m_name;
-      if (m_name = nullptr) {
+      if (name != nullptr) {
          m_name = new char[strlen(name) + 1];
          strcpy(m_name, name);
       }
    }
-
 
    //"peek()" and see if the next character in the keyboard buffer is the same as the ch argument
 
@@ -71,7 +71,7 @@ namespace sdds {
 
    std::ostream& HealthCard::printIDInfo(std::ostream& ostr) const
    {
-      ostr << m_vCode << "-" << m_vCode << ", " << m_sNumber;
+      ostr << m_number << "-" << m_vCode << ", " << m_sNumber;
       // TODO: insert return statement here
       return ostr;
    }
@@ -97,7 +97,9 @@ namespace sdds {
          m_sNumber[9] = '\0';
       }
       else {
-         delete[] m_name;
+         if (m_name != nullptr) {
+            delete[] m_name;
+         }
          setEmpty();         
       }
    }
@@ -217,7 +219,7 @@ namespace sdds {
          hc.print(ostr, false); //// Print the health card information on the screen (not to file)
       }
       else {
-         ostr << "Invalid Card Number";
+         ostr << "Invalid Health Card Record";
       }
       // TODO: insert return statement here
       return ostr;
