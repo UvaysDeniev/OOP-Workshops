@@ -1,0 +1,202 @@
+Workshop 9 Reflection
+
+***Implementing Inheritance and Dynamic Memory Management***
+
+In Workshop 9, I deepened my understanding of inheritance and dynamic memory management, as demonstrated in the Graduate and Student classes.
+
+Student Class: Served as the base class, managing basic attributes like name and age.
+
+class Student {
+protected:
+    char* name;
+    int age;
+    // ...
+};
+
+Graduate Class: Extended Student, adding specific attributes like thesis title and supervisor.
+
+class Graduate : public Student {
+private:
+    char* thesisTitle;
+    char* supervisor;
+    // ...
+};
+
+Why Inheritance and Dynamic Memory Management are Important
+
+Inheritance allowed me to create a hierarchical relationship between Student and Graduate, promoting code reuse and extensibility. Dynamic memory management was crucial for handling strings, demonstrating the importance of deep copying and resource management.
+
+
+***Applying the Rule of Three***
+
+Both Student and Graduate classes implemented the Rule of Three, ensuring proper handling of dynamic memory:
+
+    Copy Constructor: Ensured deep copy of dynamically allocated memory.
+    Copy Assignment Operator: Handled self-assignment and deep copy.
+    Destructor: Released dynamically allocated resources.
+
+    Graduate::Graduate(const Graduate& other) : Student(other) {
+        // Copy thesis title
+        if (other.thesisTitle) {
+            thesisTitle = new char[strlen(other.thesisTitle) + 1];
+            strcpy(thesisTitle, other.thesisTitle);
+        }
+        else {
+            thesisTitle = nullptr;
+        }
+
+        // Copy supervisor name
+        if (other.supervisor) {
+            supervisor = new char[strlen(other.supervisor) + 1];
+            strcpy(supervisor, other.supervisor);
+        }
+        else {
+            supervisor = nullptr;
+        }
+    }
+
+    Graduate& Graduate::operator=(const Graduate& other) {
+        if (this != &other) {
+            // Call base class assignment operator
+            Student::operator=(other);
+
+            // Delete existing data
+            delete[] thesisTitle;
+            delete[] supervisor;
+
+            // Copy thesis title
+            if (other.thesisTitle) {
+                thesisTitle = new char[strlen(other.thesisTitle) + 1];
+                strcpy(thesisTitle, other.thesisTitle);
+            }
+            else {
+                thesisTitle = nullptr;
+            }
+
+            // Copy supervisor name
+            if (other.supervisor) {
+                supervisor = new char[strlen(other.supervisor) + 1];
+                strcpy(supervisor, other.supervisor);
+            }
+            else {
+                supervisor = nullptr;
+            }
+        }
+        return *this;
+    }
+
+    Graduate::~Graduate() {
+        // Free allocated memory
+        delete[] thesisTitle;
+        delete[] supervisor;
+    }
+
+Why the Rule of Three is Important
+
+The Rule of Three is essential in classes managing resources to prevent memory leaks and ensure correct copy semantics. This is particularly important in C++ where manual memory management is common.
+
+*Challenges Faced*
+
+Understanding Deep Copying: Grasping the concept of deep copying and its implementation in the copy constructor and assignment operator was challenging.
+Resource Management: Ensuring proper resource management in destructors to avoid memory leaks required careful attention.
+
+*Workshop Difficulty*
+LAB: 6/10 - This workshop felt like a freeby, solidifying on concepts from Workshop 8.
+
+Time Taken
+LAB: Approximately 90 minutes.
+Reflection: About 40 minutes.
+
+Workshop Clarity
+Rating: 9/10.
+
+
+***Reflection on Milestone 3 of the Aid Management Application***
+
+
+Milestone 3 of the Aid Management Application represents a huge step forward in applying advanced C++ concepts, dynamic memory management, and operator overloading. This milestone focuses on enhancing the functionality and robustness of the application, providing a more comprehensive and user-friendly experience.
+
+***Inheritance and Polymorphism***
+
+The use of inheritance and polymorphism is a standout feature in this milestone. The iProduct interface and its implementation in the Item class exemplify these concepts.
+
+iProduct Interface: This interface defines a standard set of behaviors (readSku, operator-=, operator+=, etc.) that all product types must implement.
+
+class iProduct {
+    virtual int readSku(std::istream& istr) = 0;
+    // Other pure virtual functions
+};
+
+Item Class: Inherits from iProduct and implements its pure virtual functions, providing specific behaviors for items in the aid management system.
+
+class Item : public iProduct {
+    // other implementations of iProduct's pure virtual functions...
+};
+
+***Dynamic Memory Management****
+
+Milestone 3 demonstrates proficient use of dynamic memory, particularly in the AidMan and Item classes.
+
+    AidMan Class: Manages a dynamically allocated filename, showcasing the need for careful memory management.
+
+AidMan::AidMan(const char* fName) {
+    filename = new char[strlen(fName) + 1];
+    // etc
+}
+
+Item Class: Manages a dynamically allocated description, illustrating the importance of the Rule of Three.
+
+Item::Item(const Item& other) {
+    // Copy constructor handling dynamic memory
+}
+Item& Item::operator=(const Item& other) {
+    // Copy assignment operator handling dynamic memory
+}
+
+***Operator Overloading***
+
+The application makes effective use of operator overloading to enhance code readability and functionality.
+
+    In Item Class: Overloads operators like operator+= and operator-= to modify item quantities.
+
+int Item::operator+=(int qty) {
+	//code    
+}
+
+***Error Handling and Status Management***
+
+The Status class plays a crucial role in managing the state of operations and handling errors.
+
+    Status Class: Manages a dynamic description and status code, providing detailed error information.
+
+
+	std::ostream& operator<<(std::ostream& os, const Status& status) {
+		if (!status) { // If status is "bad"
+			if (status.s_statusCode != 0) {
+				os << "ERR#" << status.s_statusCode << ": ";
+			}
+			if (status.s_description != nullptr) {
+				os << status.s_description;
+			}
+		}
+		return os;
+	}
+
+***Challenges***
+
+This whole project is a fight against time-management, completing the milestones, and keeping up with adulting.
+Trying to complete this milestone on time while working looks like this:
+* Wake up
+* Chug Coffee
+* Travel to work for 80 minutes
+* Work for 8 hours
+* Travel home for 80 minutes
+* Lay on the floor and time a cry sesh (only 2 minutes are allowed)
+* Code furiously on one monitor while reading notes on the second monitor
+* Finish at 2 am
+* Undersleep 
+* Repeat 
+
+Areas that I need to improve on: virtuals and pure virtuals
+Areas i'm decent at: dynamic memory allocation, constructors, deconstructors, polymorphism
+

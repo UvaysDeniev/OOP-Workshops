@@ -1,0 +1,136 @@
+Workshop 7 Reflection
+
+***Inheriting a Derived Class from a Base Class***
+
+In Workshop 7, I jumped into the concept of inheritance by creating a Pack class derived from the Container class.
+This allowed me to extend the functionality of Container while maintaining its core attributes.
+For example, Pack inherited and adapted properties like capacity and content volume to suit its specific context:
+
+Pack::Pack(const char* cont, int size, int unitSize, int numUnits)
+    : Container(cont, size * unitSize, numUnits * unitSize), c_unitSize(unitSize) {
+    if (unitSize <= 0) {
+        setEmpty();
+    }
+}
+
+Why Inheriting a Derived Class from a Base Class is Important
+
+Inheritance is a cornerstone of OOP, allowing for code reusability and a hierarchical organization of classes.
+It enables the creation of more specialized classes without duplicating code, leading to more maintainable and scalable software.
+
+
+***Shadowing Base Class Member Functions***
+
+I learned to shadow member functions in the derived class, Pack, effectively overriding the behavior of the base class, Container.
+This was particularly evident in methods like operator+= and operator-= where Pack needed to handle units differently:
+
+int Pack::operator+=(int numUnits) {
+    int addedUnits = Container::operator+=(numUnits * c_unitSize) / c_unitSize;
+    return addedUnits;
+}
+
+Why Shadowing Base Class Member Functions is Important
+
+Function shadowing allows derived classes to customize or extend the behavior of inherited methods.
+It's essential for polymorphism, enabling objects of different classes to be treated uniformly while behaving according to their specific class implementations.
+
+
+***Accessing Shadowed Member Functions Defined in a Base Class***
+
+The lab also involved accessing shadowed member functions from the base class within the derived class.
+This was a crucial aspect of maintaining the integrity of the base class's functionality while extending or modifying it in the derived class:
+
+int Pack::operator+=(int numUnits) {
+    return Container::operator+=(numUnits * c_unitSize) / c_unitSize;
+}
+
+Why Accessing Shadowed Member Functions is Important
+
+Accessing shadowed functions is vital for leveraging and extending the functionality of the base class within a derived class.
+It ensures that the core logic of the base class remains intact and reusable across different derived classes.
+
+
+***Utilizing Custom Input/Output Operators***
+
+I implemented custom input/output operators for both Container and Pack classes.
+These operators were tailored to handle the specific output and input requirements of these classes, enhancing their usability and integration with standard C++ I/O streams:
+
+ void Pack::read(std::istream& in) {
+     // Check if the Pack is in a valid state
+     if (!*this) {
+         // If invalid, print error message and exit the function
+         std::cout << "Broken Container, adding aborted! Press <ENTER> to continue...." << std::endl;
+         //std::cin.ignore(1000, '\n');
+         return;
+     }
+
+     // Check if the Pack is not full
+     if (noOfUntis() < size()) {
+         // Print the current state of the Pack
+         std::cout << "Add to ";
+         print(std::cout); // Use the print method
+         std::cout << "\n> ";
+
+         int numUnits;
+         int maxUnits = size() - noOfUntis();
+         // Foolproof integer entry loop
+         while (!(in >> numUnits) || numUnits < 1 || numUnits > maxUnits) {
+             // Clear the input stream and ignore incorrect input
+             in.clear();
+             std::cin.ignore(1000, '\n');
+             // Print appropriate error message based on the type of input error
+             if (in.fail()) {
+                 std::cout << "Invalid Integer, retry: ";
+             }
+             else {
+                 std::cout << "Value out of range [1<=val<=" << maxUnits << "]: ";
+             }
+         }
+
+         // Add the entered number of units to the Pack
+         int added = *this += numUnits;
+         // Print the number of units successfully added
+         std::cout << "Added " << added << "\n";
+     }
+     else {
+         // If the Pack is full, print message and exit the function
+         std::cout << "Pack is full!, press <ENTER> to continue..." << std::endl;
+         std::cin.ignore(1000, '\n');
+     }
+ }
+
+Why Utilizing Custom Input/Output Operators is Important
+
+Custom I/O operators provide a natural and intuitive way to handle object serialization and deserialization.
+They align with C++'s philosophy of stream-based I/O, making classes more versatile and their instances easier to manage in terms of input and output operations.
+
+Describing What I Learned in Completing This Workshop
+
+This workshop was the most difficult out of all 7 but it helped me in enhancing my understanding of inheritance, function shadowing, and custom I/O operations in C++.
+It challenged me to think critically about how classes interact and extend each other's functionalities.
+I learned the importance of designing classes that are both functional and logically structured, ensuring that they are not only effective in their purpose but also maintainable and scalable.
+
+
+***Difficulties Encountered***
+
+Understanding Shadowing vs. Overriding:
+Initially, I found it challenging to distinguish between function shadowing and overriding, especially in the context of C++'s inheritance model.
+For instance, in Pack::operator+=, I was shadowing the method of Container rather than overriding it, which required a different approach to ensure the correct functionality.
+
+Custom I/O Operators:
+Implementing custom I/O operators required careful consideration of the format and integrity of the data being read and written, which was a meticulous task.
+For example, in the operator<< for Container, I had to ensure that the output format was consistent and informative, reflecting the state of the Container object accurately.
+
+***Workshop Difficulty***
+
+LAB: 10/10 - The concepts of inheritance and function shadowing were brutal but rewarding once understood.
+
+***Time Taken***
+
+LAB: Approximately 7 hours.
+Reflection: Around 65 minutes.
+
+
+***Workshop Clarity***
+
+Rating: 7/10 - Due to a lot of newer terminology it was harder to understand of what was expected of me.
