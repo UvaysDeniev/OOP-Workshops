@@ -1,0 +1,107 @@
+Workshop 8 Reflection
+
+***Defining Pure Virtual Functions***
+
+In this workshop, I learned to define pure virtual functions, which are essential in creating abstract base classes. For instance, in the Shape class, I defined draw and getSpecs as pure virtual functions, making Shape an abstract base class:
+
+class Shape {
+public:
+    virtual void draw(std::ostream& os) const = 0;
+    virtual void getSpecs(std::istream& is) = 0;
+    virtual ~Shape() {}
+};
+
+Why Defining Pure Virtual Functions is Important
+
+Pure virtual functions are crucial in defining a consistent interface for derived classes. They enforce a contract that derived classes must implement, ensuring that each derived class provides its own specific implementation of these functions. This is fundamental in polymorphic behavior.
+
+
+***Creating Abstract Base Classes***
+
+I created an abstract base class, Shape, which serves as a blueprint for other shapes like Rectangle and Line. This class cannot be instantiated on its own, emphasizing the concept of abstraction in object-oriented design:
+
+class Shape {
+public:
+    virtual void draw(std::ostream& os) const = 0;
+    virtual void getSpecs(std::istream& is) = 0;
+    virtual ~Shape() {}
+};
+
+
+Why Creating Abstract Base Classes is Important
+
+Abstract base classes allow for defining a common interface for a group of related classes. They encapsulate what is common among these classes while deferring the specifics to the derived classes. This approach is vital for creating a flexible and scalable class hierarchy.
+
+
+***Implementing Behavior Using Virtual Functions***
+
+I implemented behavior in derived classes using virtual functions. For example, in Rectangle, the draw method was overridden to provide specific functionality for drawing a rectangle:
+
+    void Rectangle::draw(std::ostream& ostr) const {
+        if (this != nullptr && m_width > 0 && m_height > 0) {
+            // Drawing the top of the rectangle
+            ostr << '+';
+            ostr << std::setw(m_width - 1) << std::setfill('-') << '+' << std::setfill(' ') << std::endl;
+
+            // Drawing the label line
+            ostr << '|' << std::setw(m_width - 2) << std::left << label();
+            ostr << std::right << std::setfill(' ') << '|' << std::endl;
+
+            // Drawing the inside of the rectangle
+            for (int i = 0; i < m_height - 3; ++i) {
+                ostr << '|' << std::setw(m_width - 1) << std::right << '|' << std::endl;
+            }
+
+            // Drawing the bottom of the rectangle
+            ostr << '+' << std::setw(m_width - 1) << std::setfill('-') << '+' << std::setfill(' ');
+        }
+    }
+}
+
+Why Implementing Behavior Using Virtual Functions is Important
+
+Using virtual functions allows derived classes to provide specific implementations of methods defined in the base class. This is a cornerstone of polymorphism, enabling objects to behave differently based on their actual derived types, even when accessed through a base class pointer or reference.
+
+
+***Explaining the Difference Between an Abstract Base Class and a Concrete Class***
+
+An abstract base class, like Shape, defines a template without providing a complete implementation. In contrast, a concrete class, such as Rectangle or Line, provides a specific implementation of all its member functions, making it instantiable:
+
+class Shape {
+public:
+    virtual void draw(std::ostream& os) const = 0;
+    virtual void getSpecs(std::istream& is) = 0;
+    virtual ~Shape() {}
+};
+
+vs
+
+class Rectangle : public LblShape {
+	int m_width;
+	int m_height;
+public:
+	Rectangle();
+	Rectangle(const char* Cstring, int height, int width);
+	void getSpecs(std::istream& istr) override;
+	void draw(std::ostream& ostr ) const override;
+};
+
+Why Understanding This Difference is Important
+
+Understanding the difference between abstract base classes and concrete classes is fundamental in oop. It helps in designing a system where some classes provide only a template (abstract classes) while others offer concrete implementations. This distinction is crucial for creating a robust and flexible architecture.
+
+
+***Difficulties Encountered***
+
+Grasping Abstract Classes: Initially, understanding the concept of an abstract class and its practical application was difficult. It took some time to appreciate how an abstract class like Shape serves as a foundation for other classes without being instantiable itself.
+Implementing Virtual Functions: Implementing virtual functions in derived classes required careful attention to ensure that they correctly override the base class functions and provide the intended functionality.
+
+***Workshop Difficulty***
+LAB: 9/10 - The concepts were complex but became clearer with practice and implementation.
+
+***Time Taken***
+LAB: Approximately 7 hours.
+Reflection: About 45 minutes.
+
+Workshop Clarity
+Rating: 8/10 - It was clear and fairly easy to understand but wasn't easy at all.
